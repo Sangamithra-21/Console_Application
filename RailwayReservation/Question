@@ -1,0 +1,37 @@
+Write a program to book tickets as per the details given below
+
+---> Train starts from station 'A' and reached station 'E'
+
+---> Assume the station order as A -> B -> C -> D -> C -> E
+
+---> Tickets can be booked from any place, i.e ('A' to 'E') or ('C' to 'E') or ('B' to 'D') etc..
+
+---> A single ticket can be booked for multiple passengers. For example, if four people are travelling as a group, then it
+     will be one ticket which will have the seating information for four people.
+
+---> The train has only one coach with eight seats.
+
+---> There can be a maximum of 2 waiting list seats in addition to 8 confirmed seats.
+
+---> Each ticket is uniquely identified by a sequentially generated number called PNR (both for confrimed and waiting
+     list booking)
+
+---> If a passenger is allocated a seat for a ticket booked between D -> E, then same seat should not be allotted for other
+     tickets booked for A -> E, where as it can be allocated for any booking between stations A -> D.
+
+---> Book tickets only when all the requested number of seats are available in a booking(either confirmed or WL seat)
+     For e.g if 4 seats are requested, book only when all four are available but should not book when only 3 or less
+     seats are available.
+
+---> Each ticket once booked / cancelled should have the source,destination, no of seats, and the status (booked / cancelled)
+     printed.
+
+---> A ticket should be cancelled using the PNR, once a ticket has been cancelled, the PNR should be possible to cancel
+     2 seats alone.
+
+---> Partial cancellation should be supported i.e If a PNR has 4 seats booked, then it should be possible to cancel 2
+     seats alone.
+
+---> When a ticket is cancelled, the passengers in the waiting list should be moved up provided following conditions are
+     met Assume WL1 is from A -> D and WL2 is from D -> E. If a cancellation happens from C -> E, insuch cases, the WL1
+     cannot be accommodated since it is from A -> D. So,here the WL2 should be moved to confirmed list.

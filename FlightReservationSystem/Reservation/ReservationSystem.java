@@ -146,14 +146,13 @@ public class ReservationSystem {
 
     private int removePassengerAndSeat(Flight flight, int seat) {
 
-        int ind;
+
         for(Passenger passenger : flight.passengerList)
         {
             if(passenger.seatNo==seat)
             {
-                ind = passenger.passengerId-1;
-                flight.passengerList.remove(ind);
-                flight.seats[ind-1]=ind+1;
+                flight.passengerList.remove(passenger);
+                flight.seats[seat-1]=0;
                 return passenger.ticketCost;
             }
         }

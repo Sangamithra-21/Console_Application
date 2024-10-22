@@ -151,12 +151,12 @@ public class MarketViewModel {
         Node prev = null;
         Node current = cart;
         while (current != null) {
-            Items item = (Items) cart.data;
+            Items item = (Items) current.data;
             if (item.getItemId() == id) {
                 if (prev == null) {
                     cart = current.next;
                 } else {
-                    ll.deleteData(cart);
+                    ll.deleteData(prev);
                 }
                 System.out.println("Item Deleted from cart successfully...!");
                 return cart;

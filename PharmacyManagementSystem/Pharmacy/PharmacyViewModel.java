@@ -90,4 +90,19 @@ public class PharmacyViewModel {
         }
         return null;
     }
+
+    public Branch findAnotherBranch(int reqQuantity, Medicine medicine) {
+
+        for(Branch branch : repository.branches)
+        {
+            for(Medicine medicines : branch.getMedicineList())
+            {
+                if(medicines==medicine && medicines.getQuantity()>=reqQuantity)
+                {
+                    return branch;
+                }
+            }
+        }
+        return null;
+    }
 }

@@ -7,6 +7,7 @@ import PharmacyManagementSystem.DTO.Medicine;
 import PharmacyManagementSystem.DTO.Customer;
 
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
 
@@ -218,7 +219,7 @@ public class PharmacyView {
             if(medicine==null)
             {
                 System.out.println("No such Medicine found..!");
-                return;
+                continue;
             }
 
             if(reqQuantity>medicine.getQuantity())
@@ -226,26 +227,59 @@ public class PharmacyView {
                 System.out.println("Required quantity Not found..!");
                 Medicine altMedicine = repository.alternateMedicineList.get(medicine.getMedicineName());
 
-                if(reqQuantity<altMedicine.getQuantity())
+                if(branch.getMedicineList().contains(altMedicine))
                 {
-                    System.out.println("Suggested Medicine : "+altMedicine.getMedicineName());
+
+                if(reqQuantity<altMedicine.getQuantity()) {
+                    System.out.println("Suggested Medicine : " + altMedicine.getMedicineName());
                     System.out.println("1 to confirm | 0 to quit");
                     int choice = sc.nextInt();
 
-                    if(choice==1)
-                    {
+                    if (choice == 1) {
                         customer.getCartList().add(altMedicine);
 
                         int newquantity = altMedicine.getQuantity() - reqQuantity;
 
-                        totalAmount = totalAmount + (altMedicine.getPrice()*reqQuantity);
+                        totalAmount = totalAmount + (altMedicine.getPrice() * reqQuantity);
 
                         altMedicine.setQuantity(newquantity);
                         System.out.println("Medicine Added to cart Successfully...!");
-                    }
-                    else {
+                    } else {
                         continue;
                     }
+                }
+
+                }
+                else {
+
+                    Branch altBranch1 = model.findAnotherBranch(reqQuantity,medicine);
+                    Branch altBranch2 = model.findAnotherBranch(reqQuantity,altMedicine);
+                    Branch alter=null;
+                    if(altBranch1!=null)
+                    {
+                        alter = altBranch1;
+                    }
+                    else if(altBranch2!=null)
+                    {
+                        alter = altBranch2;
+                    }
+                    if(alter!=null){
+                        System.out.println("Required Medicine Not Available In this branch ");
+                        System.out.println("Suggested branch : "+branch.getBranchLocation());
+                        System.out.println("press 1 to change branch | 0 to continue with same branch");
+
+                        int choice = sc.nextInt();
+
+                        if(choice==1)
+                        {
+                            branch = alter;
+                        }
+                        else if(choice==0)
+                        {
+                            continue;
+                        }
+                    }
+                    
 
                 }
             }
@@ -270,7 +304,7 @@ public class PharmacyView {
                 Purchase purchase = new Purchase(totalAmount,branch.getBranchLocation(),customer.getCartList());
                 customer.getPurchaseList().add(purchase);
                 System.out.println("Amount For your Order : "+purchase.getAmount());
-                customer.setCartList(null);
+                customer.setCartList(new ArrayList<>());
                 System.out.println("Ordered Successfully...!");
                 break;
             }

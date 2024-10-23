@@ -5,12 +5,13 @@ import SuperMarketApplication.Repository.Node;
 public class Product {
 
     static int pid = 1;
-    private int productId = pid;
+    private int productId;
     private String productName;
     public Node Items;
 
     public Product(String productName)
     {
+        this.productId = pid++;
         this.productName = productName;
         Items = null;
     }

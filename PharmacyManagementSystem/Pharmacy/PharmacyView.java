@@ -263,6 +263,10 @@ public class PharmacyView {
                     {
                         alter = altBranch2;
                     }
+                    if(alter==null)
+                    {
+                        System.out.println("Medicine Not Found Anywhere...!");
+                    }
                     if(alter!=null){
                         System.out.println("Required Medicine Not Available In this branch ");
                         System.out.println("Suggested branch : "+branch.getBranchLocation());
@@ -279,7 +283,7 @@ public class PharmacyView {
                             continue;
                         }
                     }
-                    
+
 
                 }
             }
